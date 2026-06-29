@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Jupyter Notebook - Soccer Predictions</title>
+  <meta name="description" content="An interactive Jupyter Notebook modeling national soccer teams and predicting the 2026 World Cup bracket using Pyodide and WebAssembly.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="../../stylesheets/style.css">
+  
+  <!-- Notebook Specific Styles -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Marked (Markdown Parser) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- Pyodide (Python in WebAssembly) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
+  
+  <!-- CodeMirror (Syntax Highlighting Editor) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  
+  <!-- MathJax (LaTeX Math Rendering) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="shared-header" data-depth="2" data-active="playground"></header>
+
+  <!-- Main Content -->
+  <section class="essay-view" style="padding-top: 160px; padding-bottom: 100px;">
+    <div class="section-wrapper editorial-layout">
+      <div class="sidebar-title">
+        <a href="../../index.html#playground" class="back-to-home" style="margin-bottom: 32px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Back to Playground
+        </a>
+        
+        <div class="essay-sidebar-meta">
+          <div class="essay-sidebar-meta-item">
+            <div class="essay-sidebar-meta-label">Type</div>
+            <div class="essay-sidebar-meta-value">Jupyter Notebook</div>
+          </div>
+          <div class="essay-sidebar-meta-item">
+            <div class="essay-sidebar-meta-label">Runtime</div>
+            <div class="essay-sidebar-meta-value">Pyodide (WASM)</div>
+          </div>
+          <div class="essay-sidebar-meta-item">
+            <div class="essay-sidebar-meta-label">Status</div>
+            <div class="essay-sidebar-meta-value" style="margin-top: 4px;">
+              <div id="status-badge" class="status-badge loading" style="padding: 4px 10px; font-size: 0.8rem; display: inline-flex;">
+                <div id="status-dot" class="status-dot"></div>
+                <span id="status-text">Loading WASM...</span>
+              </div>
+            </div>
+          </div>
+          <div class="essay-sidebar-meta-item" style="margin-top: 24px;">
+            <button id="run-all-btn" class="btn-run-all" disabled style="width: 100%; justify-content: center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              Run All Cells
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <article class="essay-post">
+        <h1 class="essay-post-title" style="margin-top: 0; margin-bottom: 32px; display: flex; align-items: center; gap: 12px;">
+          <span class="notebook-icon" style="flex-shrink: 0; width: 36px; height: 36px; font-size: 1.1rem; border-radius: 10px;">Py</span>
+          soccer_predictions.ipynb
+        </h1>
+        
+        <div id="notebook-container" class="notebook-container" style="margin: 0; padding: 0; max-width: 100%;">
+          <div style="text-align: center; padding: 60px 0; color: var(--text-secondary); font-family: var(--font-heading); font-weight: 500;">
+            <div class="spinner" style="border-top-color: var(--accent); width: 28px; height: 28px; margin: 0 auto 16px; border-width: 3px;"></div>
+            Loading Notebook...
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="shared-footer"></footer>
+
+  <!-- Layout Script -->
+  <script src="../../javascripts/layout.js"></script>
+
+  <!-- Notebook Runner Script -->
+  <script src="runner.js"></script>
+</body>
+</html>
