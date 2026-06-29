@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thoughts on the SIEM Landscape - 2026</title>
+  <meta name="description"
+    content="An analysis of the shifting economics, vendor consolidations, and architectural paradigms reshaping security telemetry in 2026.">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header id="shared-header" data-subpage="true" data-active="essays"></header>
+
+  <!-- Main Article -->
+  <section class="essay-view" style="padding-top: 160px; padding-bottom: 100px;">
+    <div class="section-wrapper editorial-layout">
+      <div class="sidebar-title">
+        <a href="../index.html#essays" class="back-to-home" style="margin-bottom: 32px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Back to Essays
+        </a>
+        <div class="essay-sidebar-meta">
+          <div class="essay-sidebar-meta-item">
+            <div class="essay-sidebar-meta-label">Published</div>
+            <div class="essay-sidebar-meta-value">June 2026</div>
+          </div>
+          <div class="essay-sidebar-meta-item">
+            <div class="essay-sidebar-meta-label">Reading Time</div>
+            <div class="essay-sidebar-meta-value">12 min read</div>
+          </div>
+          <div class="essay-sidebar-meta-item">
+            <div class="essay-sidebar-meta-label">Author</div>
+            <div class="essay-sidebar-meta-value">Paulo Tanaka</div>
+          </div>
+        </div>
+      </div>
+
+      <article class="essay-post">
+        <h1 class="essay-post-title" style="margin-top: 0; margin-bottom: 32px;">Thoughts on the SIEM Landscape - 2026
+        </h1>
+        <div class="essay-post-content">
+          <p>After working in the SIEM space for over three years, I wanted to share some reflections on the market, the
+            dynamics of large vendors, and the technology shaping the future of security telemetry. These thoughts
+            represent my personal analysis of where the industry is heading.</p>
+
+          <h2>The Shifting Economics of Cyber Telemetry</h2>
+          <p>
+            In my view, the SIEM market is undergoing its most significant transformation since its inception.
+            Originally built as passive repositories for compliance and long-term audits, legacy SIEM platforms are
+            buckling under the scale of modern telemetry. I see security operations centers (SOCs) constantly struggling
+            to process massive volumes of data from diverse cloud, IT, and remote work environments.
+          </p>
+
+          <p>
+            When analyzing this space, I look closely at the market projections from leading research firms. While they
+            define the SIEM market boundaries slightly differently, they uniformly point to rapid expansion:
+          </p>
+
+          <div class="essay-table-container">
+            <table class="essay-table">
+              <thead>
+                <tr>
+                  <th>Research Organization</th>
+                  <th>2025 Valuation</th>
+                  <th>2026 Valuation</th>
+                  <th>Projected Future Valuation</th>
+                  <th>Compound Annual Growth Rate (CAGR)</th>
+                  <th>Key Drivers</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Grand View Research</strong></td>
+                  <td>USD 5.80 Billion</td>
+                  <td>USD 6.70 Billion</td>
+                  <td>USD 18.20 Billion (by 2033)</td>
+                  <td>15.5% (2026–2033)</td>
+                  <td>Threat complexity, cloud migration, zero-trust adoption.</td>
+                </tr>
+                <tr>
+                  <td><strong>Mordor Intelligence</strong></td>
+                  <td>USD 10.67 Billion</td>
+                  <td>USD 12.06 Billion</td>
+                  <td>USD 20.78 Billion (by 2031)</td>
+                  <td>11.5% (2026–2031)</td>
+                  <td>Cloud compute shifts, endpoint security integration.</td>
+                </tr>
+                <tr>
+                  <td><strong>Research and Markets</strong></td>
+                  <td>USD 5.63 Billion</td>
+                  <td>USD 6.25 Billion</td>
+                  <td>USD 9.40 Billion (by 2030)</td>
+                  <td>10.7% (forecast period)</td>
+                  <td>Centralized monitoring, regulatory compliance.</td>
+                </tr>
+                <tr>
+                  <td><strong>MarketsandMarkets</strong></td>
+                  <td>—</td>
+                  <td>USD 8.39 Billion</td>
+                  <td>USD 13.67 Billion (by 2031)</td>
+                  <td>10.3% (forecast period)</td>
+                  <td>AI-driven threat analytics, managed SOC.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            This divergence in figures highlights a trend I've been watching closely: the definition of a SIEM is
+            expanding. Legacy standalone log platforms are losing market share to next-generation stacks that integrate
+            extended detection and response (XDR), security orchestration (SOAR), and threat intelligence (TIP).
+          </p>
+
+          <p>
+            In my analysis of market demographics, several shifts stand out:
+          </p>
+          <ul>
+            <li><strong>Enterprise vs. Midmarket:</strong> Large enterprises made up the majority of SIEM deployments in
+              2025. However, I was struck by the midmarket segment (501 to 1,000 seats) experiencing a 288% year-on-year
+              growth rate, driven by compliance with the EU's <a
+                href="https://www.csoonline.com/article/3829750/4-key-trends-reshaping-the-siem-market.html"
+                target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">NIS2
+                directive</a>.</li>
+            <li><strong>Deployment Models:</strong> On-premises systems maintained a 55.27% foothold due to legacy
+              investments and air-gapped networks. However, the growth trajectory I observe has shifted decisively to
+              cloud-native architectures, which are expanding at a 12.8% to 17.5% CAGR, compared to a modest 3.4% CAGR
+              for on-premises solutions.</li>
+            <li><strong>Industry Verticals:</strong> BFSI led with a 27.52% revenue share in 2025, followed by IT and
+              Telecom at 20.9%. Healthcare is poised for the fastest growth (12.1% to 13.8% CAGR) due to mounting
+              regulatory requirements.</li>
+            <li><strong>The Decline of MSPs:</strong> Managed SIEM delivered via MSPs suffered an 88% collapse in 2025.
+              This suggests to me that organizations are moving away from outsourced models that fail to provide the
+              deep, tailored threat analysis required to defend complex networks.</li>
+          </ul>
+
+          <h2>Market Consolidation and the CISO Dilemma</h2>
+          <p>
+            I've observed that aggressive vendor consolidation is reshaping the SIEM market, as traditional, independent
+            platforms are absorbed into broader enterprise portfolios:
+          </p>
+
+          <div class="essay-table-container">
+            <table class="essay-table">
+              <thead>
+                <tr>
+                  <th>Combined Entity</th>
+                  <th>Completed Date</th>
+                  <th>Strategic and Architectural Implications</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Cisco acquires Splunk ($28B)</strong></td>
+                  <td>March 2024</td>
+                  <td>Folds Splunk's security and log analytics portfolio into Cisco's broader observability stack.</td>
+                </tr>
+                <tr>
+                  <td><strong>Palo Alto Networks acquires IBM QRadar SaaS</strong></td>
+                  <td>September 2024</td>
+                  <td>QRadar SaaS customers are forced to migrate to Cortex XSIAM before the EOL deadline in April 2026.
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>LogRhythm and Exabeam merge</strong></td>
+                  <td>2024</td>
+                  <td>Operates under the Exabeam name, combining LogRhythm’s SIEM footprint with Exabeam's cloud-native
+                    UEBA and AI.</td>
+                </tr>
+                <tr>
+                  <td><strong>CrowdStrike acquires Onum</strong></td>
+                  <td>September 2025</td>
+                  <td>Embeds Onum's stateless, in-memory pipeline technology directly at the ingestion source.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            From my perspective, this consolidation wave introduces critical challenges for security leaders.
+            Post-acquisition renewals often bring 20% to 30% price increases. Forced migrations—such as moving from IBM
+            QRadar SaaS to Palo Alto’s Cortex XSIAM before the April 2026 sunset date—impose a heavy operational burden.
+            I've seen typical migrations of this scale take 6 to 12 weeks to rewrite queries, re-architect connectors,
+            and retrain analysts.
+          </p>
+
+          <p>
+            To mitigate these risks, I see more security leaders adopting vendor-agnostic architectures. By separating
+            the storage layer from the analytics layer, they ensure their detection rules and playbooks remain portable.
+          </p>
+
+          <h2>The Ingestion Tax and Telemetry Pipelines</h2>
+          <p>
+            Traditional SIEM pricing charges by data volume. Verbose logs—such as DNS queries, firewall states, and
+            endpoint logs—are expensive to ingest. This forces security teams to discard up to 75% of their data to stay
+            within budget, which I believe creates major blind spots where threats can evade detection.
+          </p>
+
+          <p>
+            To resolve this, I've noticed organizations increasingly inserting telemetry pipelines (like Cribl Stream or
+            Falcon Onum) between data sources and the SIEM. These pipelines filter noise, mask PII, and route high-value
+            data to the SIEM, while sending raw, verbose logs directly to cheap object storage for historical hunting
+            and retention.
+          </p>
+
+          <p>
+            We can model the cost impact of a telemetry pipeline:
+          </p>
+
+          <div class="formula-block"
+            style="background: var(--bg-card); border: 1px solid rgba(226, 232, 240, 0.8); border-radius: var(--radius-md); padding: 28px; margin: 32px 0; text-align: center; box-shadow: var(--shadow-sm);">
+            <div
+              style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); letter-spacing: 0.03em;">
+              S = 365 &times; V &times; (F &times; R<sub>siem</sub> - R<sub>pipe</sub>)
+            </div>
+            <div
+              style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; max-width: 550px; margin: 0 auto;">
+              Where <strong>S</strong> is the net annual financial savings, <strong>V</strong> is the raw daily
+              ingestion volume, <strong>R<sub>siem</sub></strong> is the daily equivalent licensing cost per GB of the
+              target SIEM, <strong>F</strong> is the pipeline's filtering efficiency (percentage of noise removed), and
+              <strong>R<sub>pipe</sub></strong> is the pipeline's operational rate per GB.
+            </div>
+          </div>
+
+          <p>
+            For example, an enterprise processing <strong>500 GB/day</strong> on a standard SIEM ($4.93/GB equivalent,
+            or $1,800/GB/year) spends about <strong>$900,000/year</strong>.
+          </p>
+
+          <p>
+            Adding a pipeline (operating at <strong>$0.32/GB</strong>) with <strong>40%</strong> noise reduction changes
+            the costs:
+          </p>
+
+          <ul>
+            <li><strong>Filtered SIEM Cost:</strong> 300 GB/day &times; 365 days/year &times; $4.93/GB =
+              <strong>$540,000/year</strong>
+            </li>
+            <li><strong>Telemetry Pipeline Cost:</strong> 500 GB/day &times; 365 days/year &times; $0.32/GB =
+              <strong>$58,400/year</strong>
+            </li>
+            <li><strong>Net Annual Savings (S):</strong> $900,000 - ($540,000 + $58,400) =
+              <strong>$301,600/year</strong>
+            </li>
+          </ul>
+
+          <p>
+            This model shows a net annual savings of approximately <strong>34%</strong>, paying back the pipeline
+            investment within 6 to 9 weeks while ensuring the SIEM operates only on high-value data.
+          </p>
+
+          <h2>Architectural Paradigms: Open Security Lakehouses vs. Federated Search</h2>
+          <p>
+            In my analysis of how teams escape high ingestion costs, the industry is split between two primary
+            architectural movements: the Open Security Lakehouse and the Federated Search Security Data Mesh.
+          </p>
+
+          <h3>The Open Security Lakehouse</h3>
+          <p>
+            This approach, which I've seen championed by platforms like Databricks (with "Lakewatch" in March 2026),
+            stores raw logs in the customer's own cloud using open formats like Delta Lake and Apache Iceberg. By
+            decoupling storage from compute, organizations pay low object storage rates for retention, spinning up
+            serverless compute only during queries or ML jobs. In my estimation, this can reduce TCO by up to 80%.
+          </p>
+
+          <h3>The Federated Search Security Data Mesh</h3>
+          <p>
+            Instead of centralizing logs, federated search queries data where it lives. The central SIEM acts as a query
+            interface rather than a storage warehouse. I see teams pushing queries directly to remote databases, SaaS
+            platforms, and object stores (via tools like Snowflake Federation or Delta Sharing) for real-time
+            investigation without duplicating data.
+          </p>
+
+          <!-- Architectural Diagram SVG -->
+          <div style="width: 100%; display: flex; justify-content: center; margin: 40px 0;">
+            <svg viewBox="0 0 800 280" width="100%" height="auto"
+              style="max-width: 700px; font-family: var(--font-body);">
+              <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                  orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+                </marker>
+                <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.05" />
+                </filter>
+              </defs>
+
+              <!-- Unified Insight Layer -->
+              <rect x="120" y="20" width="560" height="60" rx="6" fill="#1e3a8a" fill-opacity="0.05" stroke="#1e3a8a"
+                stroke-width="1.5" filter="url(#shadow)" />
+              <text x="400" y="45" font-size="0.9rem" font-weight="700" fill="#1e3a8a" text-anchor="middle">Unified
+                Security Insight Layer</text>
+              <text x="400" y="62" font-size="0.75rem" fill="var(--text-secondary)" text-anchor="middle">Federated
+                Search & Security Data Mesh</text>
+
+              <!-- Connectors -->
+              <path d="M 200 80 L 200 142" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+              <path d="M 400 80 L 400 142" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+              <path d="M 600 80 L 600 142" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+
+              <!-- Cloud Native SIEM -->
+              <rect x="110" y="150" width="180" height="80" rx="6" fill="var(--bg-card)"
+                stroke="rgba(226, 232, 240, 0.8)" stroke-width="1.5" filter="url(#shadow)" />
+              <text x="200" y="180" font-size="0.8rem" font-weight="700" fill="var(--text-primary)"
+                text-anchor="middle">Cloud-Native SIEM</text>
+              <text x="200" y="200" font-size="0.7rem" fill="var(--text-secondary)" text-anchor="middle">Microsoft
+                Sentinel / Google SecOps</text>
+              <text x="200" y="215" font-size="0.65rem" fill="#2563eb" text-anchor="middle">(Hot Analytics Tier)</text>
+
+              <!-- Open Security Lakehouse -->
+              <rect x="310" y="150" width="180" height="80" rx="6" fill="var(--bg-card)"
+                stroke="rgba(226, 232, 240, 0.8)" stroke-width="1.5" filter="url(#shadow)" />
+              <text x="400" y="180" font-size="0.8rem" font-weight="700" fill="var(--text-primary)"
+                text-anchor="middle">Open Security Lakehouse</text>
+              <text x="400" y="200" font-size="0.7rem" fill="var(--text-secondary)" text-anchor="middle">Delta Lake /
+                Apache Iceberg</text>
+              <text x="400" y="215" font-size="0.65rem" fill="#10b981" text-anchor="middle">(Warm/Cold Storage
+                Tier)</text>
+
+              <!-- Third-Party SaaS -->
+              <rect x="510" y="150" width="180" height="80" rx="6" fill="var(--bg-card)"
+                stroke="rgba(226, 232, 240, 0.8)" stroke-width="1.5" filter="url(#shadow)" />
+              <text x="600" y="180" font-size="0.8rem" font-weight="700" fill="var(--text-primary)"
+                text-anchor="middle">Third-Party SaaS</text>
+              <text x="600" y="200" font-size="0.7rem" fill="var(--text-secondary)" text-anchor="middle">Identity &
+                Endpoint APIs</text>
+              <text x="600" y="215" font-size="0.65rem" fill="#f59e0b" text-anchor="middle">(External Source
+                Tier)</text>
+            </svg>
+          </div>
+
+          <p>
+            Both architectures rely on the Open Cybersecurity Schema Framework (OCSF). I've found that AI and search
+            engines struggle with unstructured logs, and normalizing sources—like firewalls, endpoints, and identity
+            providers—into OCSF provides the consistent structure needed for reliable correlation.
+          </p>
+
+          <h2>Adversary Velocity and the Talent Deficit</h2>
+          <p>
+            The most compelling driver I see for SIEM modernization is the collapsing timeline of cyber attacks, which
+            quickly overwhelms manual operations:
+          </p>
+
+          <ul>
+            <li><strong>Exploitation Windows:</strong> The mean time to exploit a new vulnerability has collapsed from
+              23.2 days in 2025 to just <strong>1.6 days</strong>.</li>
+            <li><strong>Adversary Breakout Times:</strong> The average time to move laterally after initial compromise
+              has fallen to <strong>29 minutes</strong> (with the fastest recorded at 27 seconds).</li>
+            <li><strong>Analyst Fatigue:</strong> Legacy rule-based SIEMs generate over 80% false positives, leading
+              analysts to ignore up to 62% of alerts.</li>
+            <li><strong>Talent Deficit:</strong> With a global workforce gap of 4.8 million unfilled roles, I believe
+              security teams must leverage automation to scale.</li>
+          </ul>
+
+          <p>
+            These factors explain why I see a strong shift toward platforms that automate investigation and containment
+            at machine speed.
+          </p>
+
+          <h2>Emerging Features in Next-Gen SIEMs</h2>
+          <p>
+            I am particularly interested in several key capabilities that next-generation SIEMs are introducing to meet
+            these demands:
+          </p>
+
+          <h3>Agentic SOC Workflows</h3>
+          <p>
+            AI agents are moving beyond simple summarization to autonomous action. I've been tracking agent swarms
+            (e.g., Google SecOps' Gemini, CrowdStrike's Charlotte AI) that can execute multi-step workflows. On anomaly
+            detection, they gather logs, correlate them with user history, enrich the case with threat intel, and
+            present a structured report. In my experience, this can reduce junior analyst onboarding time by up to 70%.
+          </p>
+
+          <h3>Upstream In-Pipeline Detection</h3>
+          <p>
+            I am seeing next-gen SIEMs run detections directly in the ingestion pipeline (e.g., via Falcon Onum).
+            Flagging indicators of compromise (IOCs) before they hit the database speeds up response times and avoids
+            unnecessary database write costs.
+          </p>
+
+          <h3>Detection-as-Code (DaC)</h3>
+          <p>
+            I've observed a growing adoption of DaC, where security teams write and version detection logic using SQL
+            and YAML. Managing these rules in CI/CD pipelines allows automated testing, peer reviews, and rollbacks,
+            bringing software engineering discipline to security.
+          </p>
+
+          <h2>Novel Security Exploits Targeting the AI Layer</h2>
+          <p>
+            As security operations rely more on AI, I expect the AI-native layer itself to become a primary target.
+            Integrating LLMs and CLIs into pipelines introduces new attack vectors.
+          </p>
+          <p>
+            For example, <a href="https://www.sentinelone.com/vulnerability-database/cve-2026-6442/" target="_blank"
+              rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">CVE-2026-6442</a> was
+            a critical remote code execution (RCE) vulnerability in the Snowflake Cortex Code CLI (patched in April
+            2026). It stemmed from improper input validation of bash commands before sandbox execution (CWE-1286).
+          </p>
+
+          <!-- Exploit Flow SVG -->
+          <div style="width: 100%; display: flex; justify-content: center; margin: 40px 0;">
+            <svg viewBox="0 0 800 120" width="100%" height="auto"
+              style="max-width: 750px; font-family: var(--font-body);">
+              <defs>
+                <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                  orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444" />
+                </marker>
+              </defs>
+
+              <!-- Step 1 -->
+              <rect x="10" y="20" width="130" height="50" rx="6" fill="#ef4444" fill-opacity="0.05" stroke="#ef4444"
+                stroke-width="1.5" />
+              <text x="75" y="42" font-size="0.75rem" font-weight="700" fill="#dc2626" text-anchor="middle">Malicious
+                Repo</text>
+              <text x="75" y="56" font-size="0.65rem" fill="var(--text-secondary)" text-anchor="middle">Embedded Bash
+                Injection</text>
+
+              <!-- Arrow -->
+              <path d="M 140 45 L 162 45" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)"
+                fill="none" />
+
+              <!-- Step 2 -->
+              <rect x="170" y="20" width="140" height="50" rx="6" fill="var(--bg-card)"
+                stroke="rgba(226, 232, 240, 0.8)" stroke-width="1.5" />
+              <text x="240" y="42" font-size="0.75rem" font-weight="700" fill="var(--text-primary)"
+                text-anchor="middle">Cortex CLI Processing</text>
+              <text x="240" y="56" font-size="0.65rem" fill="var(--text-secondary)" text-anchor="middle">Analyst runs
+                query</text>
+
+              <!-- Arrow -->
+              <path d="M 310 45 L 332 45" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)"
+                fill="none" />
+
+              <!-- Step 3 -->
+              <rect x="340" y="20" width="140" height="50" rx="6" fill="#ef4444" fill-opacity="0.05" stroke="#ef4444"
+                stroke-width="1.5" />
+              <text x="410" y="42" font-size="0.75rem" font-weight="700" fill="#dc2626" text-anchor="middle">Improper
+                Validation</text>
+              <text x="410" y="56" font-size="0.65rem" fill="var(--text-secondary)" text-anchor="middle">CWE-1286
+                failure</text>
+
+              <!-- Arrow -->
+              <path d="M 480 45 L 502 45" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)"
+                fill="none" />
+
+              <!-- Step 4 -->
+              <rect x="510" y="20" width="130" height="50" rx="6" fill="#ef4444" fill-opacity="0.05" stroke="#ef4444"
+                stroke-width="1.5" />
+              <text x="575" y="42" font-size="0.75rem" font-weight="700" fill="#dc2626" text-anchor="middle">RCE
+                Breakout</text>
+              <text x="575" y="56" font-size="0.65rem" fill="var(--text-secondary)" text-anchor="middle">Outside
+                sandbox</text>
+
+              <!-- Arrow -->
+              <path d="M 640 45 L 662 45" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)"
+                fill="none" />
+
+              <!-- Step 5 -->
+              <rect x="670" y="20" width="120" height="50" rx="6" fill="#dc2626" stroke="#dc2626" stroke-width="1.5" />
+              <text x="730" y="45" font-size="0.75rem" font-weight="700" fill="#ffffff" text-anchor="middle">Host
+                System</text>
+              <text x="730" y="58" font-size="0.65rem" fill="#ffffff" fill-opacity="0.9"
+                text-anchor="middle">Compromised</text>
+            </svg>
+          </div>
+
+          <p>
+            An attacker could embed malicious shell commands in a repository. When processed by the Cortex CLI, the LLM
+            failed to sanitize the input, executing arbitrary code outside the sandbox.
+          </p>
+          <p>
+            To me, this highlights that because LLM outputs are non-deterministic, static scanning is not enough. I
+            believe security teams must enforce strict input validation, run CLIs in isolated sandboxes, and monitor
+            process spawning.
+          </p>
+
+          <h2>Key Trends I am Watching</h2>
+          <p>
+            Looking at the modern landscape, I see three dominant trends replacing the traditional, ingestion-taxed SIEM
+            model:
+          </p>
+
+          <h3>1. Decoupling Analytics from Storage</h3>
+          <p>
+            The shift away from closed, ingest-metered data silos toward open security lakehouses (using Delta Lake or
+            Apache Iceberg). This allows organizations to retain 100% of your telemetry at low object storage rates,
+            keeping historical data accessible without blowing the budget.
+          </p>
+
+          <h3>2. Standardizing via Open Schemas (OCSF)</h3>
+          <p>
+            The adoption of OCSF normalization at the ingestion boundary. Standardizing data as it enters the pipeline
+            provides the consistent structure that AI agents and federated engines need to correlate events and reduce
+            false positives.
+          </p>
+
+          <h3>3. Using Telemetry Pipelines to Control Costs</h3>
+          <p>
+            The deployment of pipelines (like Cribl Stream or Falcon Onum) to filter noise, mask PII, and route
+            high-value signals to the SIEM while sending verbose logs to a data lake. This reduces SIEM costs by 30% to
+            50%, freeing up budget for detection engineering.
+          </p>
+
+          <h2>Conclusion</h2>
+          <p>
+            Ultimately, my analysis of the SIEM landscape points to a future that is modular, open, and automated. The
+            days of the monolithic, proprietary security data warehouse are coming to an end. The organizations that
+            successfully defend their networks in 2026 and beyond will be those that prioritize data portability through
+            open standards like OCSF and Iceberg, control their ingestion economics using intelligent pipelines, and
+            leverage agentic AI to respond to threats at machine speed.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="shared-footer"></footer>
+
+  <script src="../javascripts/layout.js"></script>
+  <script src="../javascripts/main.js"></script>
+</body>
+
+</html>

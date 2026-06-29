@@ -1,8 +1,188 @@
-<html>
-  <head>
-    <title>Paulo's page</title>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paulo Tanaka — Systems Engineering & Distributed Infrastructure Blog</title>
+  <meta name="description"
+    content="Essays and interactive systems simulations by Paulo Tanaka, Sr. Engineering Manager at Google Cloud SecOps. Covering exabyte-scale storage, serverless databases, and ML infra.">
+  <link rel="stylesheet" href="stylesheets/style.css">
   </head>
+  
   <body>
-    blablabla
-  </body>
+<!-- Header -->
+<header id="shared-header" data-subpage="false" data-active="home"></header>
+
+<!-- Hero Section -->
+<section id="hero">
+  <div class="hero-wrapper">
+    <div class="hero-content">
+      <h1 class="hero-statement">
+        <span>Naming</span> is hard
+      </h1>
+      <p class="hero-subtext">
+        Thoughts on engineering, leadership, management and life.
+      </p>
+    </div>
+    <div class="hero-visual">
+      <div class="interactive-node-field" id="hero-interactive-field"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 1: Essays -->
+<section id="essays">
+  <div class="section-wrapper editorial-layout">
+    <div class="sidebar-title">
+      <h2>Essays</h2>
+      <p class="sidebar-subtitle">
+        Collection of thoughts exploring areas of interest.
+      </p>
+    </div>
+    <div class="essay-list">
+      <!-- Essay 1 -->
+      <article class="essay-card">
+        <div class="essay-meta">
+          <span class="essay-date">June 2026</span>
+          <span class="essay-divider">•</span>
+          <span class="essay-read-time">12 min read</span>
+        </div>
+        <h3 class="essay-title"><a href="essays/thoughts-on-the-siem-landscape-2026.html">Thoughts on the SIEM Landscape
+            - 2026</a></h3>
+        <p class="essay-teaser">An analysis of the shifting economics, vendor consolidations, and architectural
+          paradigms reshaping security telemetry. Explores open security lakehouses, federated search, and the emergence
+          of agentic SOC workflows.</p>
+        <div class="essay-tags">
+          <span>Security</span>
+          <span>Data Infrastructure</span>
+          <span>Cloud Architecture</span>
+        </div>
+      </article>
+
+      <!-- Essay 2 -->
+      <article class="essay-card">
+        <div class="essay-meta">
+          <span class="essay-date">December 2023</span>
+          <span class="essay-divider">•</span>
+          <span class="essay-read-time">8 min read</span>
+        </div>
+        <h3 class="essay-title"><a href="essays/mungers-teachings-for-technology-organizations.html">Munger's Teachings for Technology Organizations</a></h3>
+        <p class="essay-teaser">Applying Charlie Munger's mental models, inversion strategy, and cognitive debiasing to software engineering leadership.</p>
+        <div class="essay-tags">
+          <span>Leadership</span>
+          <span>Mental Models</span>
+          <span>Engineering Culture</span>
+        </div>
+      </article>
+
+      <!-- Essay 3 -->
+      <article class="essay-card">
+        <div class="essay-meta">
+          <span class="essay-date">November 2020</span>
+          <span class="essay-divider">•</span>
+          <span class="essay-read-time">14 min read</span>
+        </div>
+        <h3 class="essay-title"><a href="essays/scaling-to-5-8-trillion-objects.html">Scaling to 5.8 Trillion Objects:
+            Lessons from Building Meta's Data Classification Engine</a></h3>
+        <p class="essay-teaser">How we engineered a high-throughput, machine-learning-driven data classification fabric
+          to scan Meta's global data stores. A deep dive into pipeline parallelism, model optimization, and managing 1
+          PB+ of daily throughput.</p>
+        <div class="essay-tags">
+          <span>Machine Learning</span>
+          <span>Data Infrastructure</span>
+          <span>Scale</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Recreational Programming (Playground) -->
+<section id="playground">
+  <div class="section-wrapper editorial-layout">
+    <div class="sidebar-title">
+      <h2>Etudes</h2>
+      <p class="sidebar-subtitle">In the spirit of musical études, these are short, recreational exercises designed to
+        illustrate a point or refine a craft.</p>
+    </div>
+    <div class="projects-grid">
+      <!-- Project 1: Soccer Predictions Jupyter Notebook -->
+      <a href="etudes/soccer-predictions/index.html" class="project-card" data-tilt style="text-decoration: none; color: inherit; display: block;">
+        <div class="project-image-container">
+          <div class="notebook-preview-widget">
+            <div class="python-logo-bg">Py</div>
+            <div class="pulse-ring"></div>
+            <div class="widget-overlay">Interactive Jupyter Notebook</div>
+          </div>
+        </div>
+        <div class="project-content">
+          <div class="project-tags">
+            <span>Jupyter Notebook</span>
+            <span>WebAssembly</span>
+            <span>Poisson Model</span>
+          </div>
+          <h3 class="project-card-title">World Cup Prediction Model</h3>
+          <p class="project-desc">An interactive goal-based Poisson model simulating the 2026 FIFA World Cup Round of 32 bracket. Explore predictions and run simulations in real-time entirely in your browser.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: About & Career -->
+<section id="about">
+  <div class="section-wrapper editorial-layout">
+    <div class="sidebar-title">
+      <h2>About &<br>Career</h2>
+    </div>
+    <div class="about-career-container">
+      <div class="about-bio">
+        <p class="lead-text">
+          I am Paulo Tanaka, a systems engineering leader specializing in high-scale data analytics, serverless cloud
+          databases, and machine learning infrastructure.
+        </p>
+        <p>
+          Currently, I lead the data storage and processing organization for Google Security Operations. Previously, I
+          managed the cluster management and developer infrastructure teams for AWS Redshift, and built Meta's global
+          data classification engine.
+        </p>
+        <p>
+          This blog is a collection of my thoughts on engineering, scaling challenges, and recreational programming
+          experiments. You can reach me at <a href="mailto:paulo.tanaka3@gmail.com">paulo.tanaka3@gmail.com</a>.
+        </p>
+      </div>
+
+      <div class="career-timeline">
+        <div class="timeline-item">
+          <span class="timeline-date">2023 — Present</span>
+          <h4 class="timeline-role">Sr. Engineering Manager (L7) — GCP SecOps</h4>
+          <span class="timeline-company">Google</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">2021 — 2023</span>
+          <h4 class="timeline-role">Sr. Engineering Manager — AWS Redshift</h4>
+          <span class="timeline-company">Amazon Web Services</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">2017 — 2021</span>
+          <h4 class="timeline-role">Staff Software Engineer & Tech Lead Manager (E6)</h4>
+          <span class="timeline-company">Facebook</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">2015 — 2017</span>
+          <h4 class="timeline-role">Senior Software Engineer</h4>
+          <span class="timeline-company">LinkedIn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="shared-footer"></footer>
+
+<script src="javascripts/layout.js"></script>
+<script src="javascripts/main.js"></script>
+</body>
 </html>
