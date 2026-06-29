@@ -19,11 +19,22 @@
   <div class="hero-wrapper">
     <div class="hero-content">
       <h1 class="hero-statement">
-        <span>Naming</span> is hard
+        <span>Hi</span>
       </h1>
-      <p class="hero-subtext">
-        Thoughts on engineering, leadership, management and life.
-      </p>
+      <div class="hero-subtext">
+        <p class="lead-text">
+          I am Paulo Tanaka, an engineer at heart, specializing in AI and distributed systems.
+        </p>
+        <p>
+          Currently, I lead the data storage and processing organization for Google Security Operations. Previously, I
+          managed the cluster management and developer infrastructure teams for AWS Redshift, and built Meta's global
+          data classification engine.
+        </p>
+        <p>
+          This blog is a collection of my thoughts on engineering, scaling challenges, and recreational programming
+          experiments. You can reach me at <a href="https://www.linkedin.com/in/paulotanaka/">linkedin</a>.
+        </p>
+        </div>
     </div>
     <div class="hero-visual">
       <div class="interactive-node-field" id="hero-interactive-field"></div>
@@ -106,78 +117,41 @@
       <p class="sidebar-subtitle">In the spirit of musical études, these are short, recreational exercises designed to
         illustrate a point or refine a craft.</p>
     </div>
-    <div class="projects-grid">
-      <!-- Project 1: Soccer Predictions Jupyter Notebook -->
-      <a href="etudes/soccer-predictions/index.html" class="project-card" data-tilt style="text-decoration: none; color: inherit; display: block;">
-        <div class="project-image-container">
-          <div class="notebook-preview-widget">
-            <div class="python-logo-bg">Py</div>
-            <div class="pulse-ring"></div>
-            <div class="widget-overlay">Interactive Jupyter Notebook</div>
+            <div class="essay-list">
+              <!-- Etude 1: Soccer Predictions Jupyter Notebook -->
+              <article class="essay-card simulation-card">
+                <div class="simulation-card-layout">
+                  <!-- Left side: Content -->
+                  <div class="simulation-card-content">
+                    <div class="essay-meta">
+                      <span class="essay-date">June 2026</span>
+                      <span class="essay-divider">•</span>
+                      <span class="essay-read-time">Interactive Simulation</span>
+                    </div>
+            <h3 class="essay-title">
+              <a href="etudes/soccer-predictions/index.html">Predicting the World Cup: A Bayesian MCMC Poisson Model</a>
+            </h3>
+            <p class="essay-teaser">
+              An interactive goal-based Poisson model simulating the 2026 FIFA World Cup Round of 32 bracket.
+              Explore predictions and run simulations in real-time entirely in your browser.
+            </p>
+            <div class="essay-tags" style="margin-top: 16px;">
+              <span>Jupyter Notebook</span>
+              <span>WebAssembly</span>
+              <span>MCMC Sampler</span>
+              <span>Poisson Model</span>
+              </div>
           </div>
-        </div>
-        <div class="project-content">
-          <div class="project-tags">
-            <span>Jupyter Notebook</span>
-            <span>WebAssembly</span>
-            <span>Poisson Model</span>
+          <!-- Right side: Graphic -->
+          <div class="mcmc-graphic-container">
+            <canvas id="mcmc-canvas" width="160" height="160"></canvas>
           </div>
-          <h3 class="project-card-title">World Cup Prediction Model</h3>
-          <p class="project-desc">An interactive goal-based Poisson model simulating the 2026 FIFA World Cup Round of 32 bracket. Explore predictions and run simulations in real-time entirely in your browser.</p>
-        </div>
-      </a>
+          </div>
+          </article>
     </div>
   </div>
 </section>
 
-<!-- Section 3: About & Career -->
-<section id="about">
-  <div class="section-wrapper editorial-layout">
-    <div class="sidebar-title">
-      <h2>About &<br>Career</h2>
-    </div>
-    <div class="about-career-container">
-      <div class="about-bio">
-        <p class="lead-text">
-          I am Paulo Tanaka, a systems engineering leader specializing in high-scale data analytics, serverless cloud
-          databases, and machine learning infrastructure.
-        </p>
-        <p>
-          Currently, I lead the data storage and processing organization for Google Security Operations. Previously, I
-          managed the cluster management and developer infrastructure teams for AWS Redshift, and built Meta's global
-          data classification engine.
-        </p>
-        <p>
-          This blog is a collection of my thoughts on engineering, scaling challenges, and recreational programming
-          experiments. You can reach me at <a href="mailto:paulo.tanaka3@gmail.com">paulo.tanaka3@gmail.com</a>.
-        </p>
-      </div>
-
-      <div class="career-timeline">
-        <div class="timeline-item">
-          <span class="timeline-date">2023 — Present</span>
-          <h4 class="timeline-role">Sr. Engineering Manager (L7) — GCP SecOps</h4>
-          <span class="timeline-company">Google</span>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-date">2021 — 2023</span>
-          <h4 class="timeline-role">Sr. Engineering Manager — AWS Redshift</h4>
-          <span class="timeline-company">Amazon Web Services</span>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-date">2017 — 2021</span>
-          <h4 class="timeline-role">Staff Software Engineer & Tech Lead Manager (E6)</h4>
-          <span class="timeline-company">Facebook</span>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-date">2015 — 2017</span>
-          <h4 class="timeline-role">Senior Software Engineer</h4>
-          <span class="timeline-company">LinkedIn</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Footer -->
 <footer id="shared-footer"></footer>

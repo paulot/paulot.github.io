@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Interactive Widgets
   initHeroField();
+  initMcmcWidget();
 });
 
 /* Header Scrolled State */
@@ -246,3 +247,262 @@ function initHeroField() {
   });
 }
 
+
+
+
+
+
+/* 2. MCMC Interactive Sampler Widget v3 */
+function initMcmcWidget() {
+  const canvas = document.getElementById('mcmc-canvas');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+  
+  // Target Probability Density Function (Double Gaussian peaks)
+  const peak1 = { x: 45, y: 70, sigma: 22, amp: 1.0 }; // Peak 1 (Spain)
+  const peak2 = { x: 115, y: 70, sigma: 18, amp: 0.8 }; // Peak 2 (Argentina)
+  
+  function getProbability(x, y) {
+    const d1 = ((x - peak1.x) ** 2 + (y - peak1.y) ** 2) / (2 * peak1.sigma ** 2);
+    const d2 = ((x - peak2.x) ** 2 + (y - peak2.y) ** 2) / (2 * peak2.sigma ** 2);
+    return peak1.amp * Math.exp(-d1) + peak2.amp * Math.exp(-d2);
+  }
+  
+  // Current sampler state
+  let currentX = 80;
+  let currentY = 70;
+  let history = [];
+  const maxHistory = 20;
+  
+  // Histogram bins (for x-axis distribution)
+  const numBins = 32;
+  const binWidth = width / numBins;
+  const histogram = new Array(numBins).fill(0);
+  let totalSamples = 0;
+  
+  // Proposal state
+  let proposedX = null;
+  let proposedY = null;
+  let proposalStatus = null; // 'accepted' or 'rejected'
+  let proposalFlashTimer = 0;
+  
+  // MCMC Loop parameters
+  let lastStepTime = 0;
+  const stepInterval = 160; // ms per MCMC step
+  
+  function mcmcStep() {
+    // Propose a new state using a random walk
+    const stepSize = 18;
+    const dx = (Math.random() - 0.5) * 2 * stepSize;
+    const dy = (Math.random() - 0.5) * 2 * stepSize;
+    
+    proposedX = Math.max(8, Math.min(width - 8, currentX + dx));
+    proposedY = Math.max(8, Math.min(height - 40, currentY + dy)); // Keep in top portion
+    
+    const pCurrent = getProbability(currentX, currentY);
+    const pProposed = getProbability(proposedX, proposedY);
+    
+    // Metropolis acceptance ratio
+    const alpha = pCurrent === 0 ? 1.0 : Math.min(1.0, pProposed / pCurrent);
+    
+    if (Math.random() < alpha) {
+      // Accept!
+      currentX = proposedX;
+      currentY = proposedY;
+      history.push({ x: currentX, y: currentY });
+      if (history.length > maxHistory) history.shift();
+      proposalStatus = 'accepted';
+      
+      // Add to distribution
+      const binIdx = Math.floor(currentX / binWidth);
+      if (binIdx >= 0 && binIdx < numBins) {
+        histogram[binIdx]++;
+        totalSamples++;
+      }
+    } else {
+      // Reject!
+      proposalStatus = 'rejected';
+    }
+    
+    proposalFlashTimer = 6; // Flash duration
+  }
+  
+  // Draw the background probability density contours (faint and clean)
+  function drawContours() {
+    // Peak 1
+    for (let r = 8; r < 55; r += 12) {
+      ctx.beginPath();
+      ctx.arc(peak1.x, peak1.y, r, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(37, 99, 235, ${0.12 * (1 - r / 55)})`; // Blue
+      ctx.lineWidth = 1.0;
+      ctx.stroke();
+    }
+    
+    // Peak 2
+    for (let r = 8; r < 45; r += 12) {
+      ctx.beginPath();
+      ctx.arc(peak2.x, peak2.y, r, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(139, 92, 246, ${0.12 * (1 - r / 45)})`; // Purple
+      ctx.lineWidth = 1.0;
+      ctx.stroke();
+    }
+  }
+  
+  // Draw the smooth distribution curve at the bottom
+  function drawDistributionCurve() {
+    const maxVal = Math.max(...histogram, 1);
+    const maxCurveHeight = 30; // Max height in pixels
+    const yBaseline = height - 2;
+    
+    ctx.beginPath();
+    ctx.moveTo(0, yBaseline);
+    
+    // Create points for the curve
+    const points = [];
+    for (let i = 0; i < numBins; i++) {
+      const h = (histogram[i] / maxVal) * maxCurveHeight;
+      const x = i * binWidth + binWidth / 2;
+      const y = yBaseline - h;
+      points.push({ x, y });
+    }
+    
+    // Draw smooth curve using quadratic curves
+    ctx.lineTo(0, points[0].y);
+    for (let i = 0; i < points.length - 1; i++) {
+      const xc = (points[i].x + points[i + 1].x) / 2;
+      const yc = (points[i].y + points[i + 1].y) / 2;
+      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+    }
+    ctx.lineTo(width, points[points.length - 1].y);
+    ctx.lineTo(width, yBaseline);
+    ctx.closePath();
+    
+    // Create beautiful template gradient (Blue -> Purple -> Pink)
+    const gradient = ctx.createLinearGradient(0, 0, width, 0);
+    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.25)');   // Blue (#3b82f6)
+    gradient.addColorStop(0.5, 'rgba(139, 92, 246, 0.25)'); // Purple (#8b5cf6)
+    gradient.addColorStop(1, 'rgba(236, 72, 153, 0.25)');   // Pink (#ec4899)
+    
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    
+    // Draw the top stroke line
+    ctx.beginPath();
+    ctx.moveTo(0, points[0].y);
+    for (let i = 0; i < points.length - 1; i++) {
+      const xc = (points[i].x + points[i + 1].x) / 2;
+      const yc = (points[i].y + points[i + 1].y) / 2;
+      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+    }
+    ctx.lineTo(width, points[points.length - 1].y);
+    
+    const strokeGradient = ctx.createLinearGradient(0, 0, width, 0);
+    strokeGradient.addColorStop(0, 'rgba(59, 130, 246, 0.6)');
+    strokeGradient.addColorStop(0.5, 'rgba(139, 92, 246, 0.6)');
+    strokeGradient.addColorStop(1, 'rgba(236, 72, 153, 0.6)');
+    
+    ctx.strokeStyle = strokeGradient;
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+  }
+  
+  // Main draw loop
+  function draw(timestamp) {
+    ctx.clearRect(0, 0, width, height);
+    
+    // 1. Draw static contours & live distribution curve
+    drawContours();
+    if (totalSamples > 0) {
+      drawDistributionCurve();
+    }
+    
+    // 2. Step the MCMC sampler
+    if (timestamp - lastStepTime > stepInterval) {
+      mcmcStep();
+      lastStepTime = timestamp;
+    }
+    
+    // 3. Draw History Trail
+    if (history.length > 1) {
+      ctx.beginPath();
+      ctx.moveTo(history[0].x, history[0].y);
+      for (let i = 1; i < history.length; i++) {
+        ctx.lineTo(history[i].x, history[i].y);
+      }
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.1)';
+      ctx.lineWidth = 1.0;
+      ctx.stroke();
+      
+      // Draw small dots along the trail
+      history.forEach((pt, idx) => {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(148, 163, 184, ${0.08 + (idx / history.length) * 0.2})`;
+        ctx.fill();
+      });
+    }
+    
+    // 4. Draw Proposal Flash
+    if (proposalFlashTimer > 0 && proposedX !== null) {
+      ctx.beginPath();
+      ctx.arc(proposedX, proposedY, 6, 0, Math.PI * 2);
+      if (proposalStatus === 'accepted') {
+        ctx.strokeStyle = `rgba(52, 211, 153, ${proposalFlashTimer / 6})`; // Emerald
+        ctx.fillStyle = `rgba(52, 211, 153, ${(proposalFlashTimer / 6) * 0.15})`;
+      } else {
+        ctx.strokeStyle = `rgba(248, 113, 113, ${proposalFlashTimer / 6})`; // Red
+        ctx.fillStyle = `rgba(248, 113, 113, ${(proposalFlashTimer / 6) * 0.15})`;
+      }
+      ctx.lineWidth = 1.0;
+      ctx.fill();
+      ctx.stroke();
+      
+      proposalFlashTimer--;
+    }
+    
+    // 5. Draw Current Sampler State
+    // Pulsing outer ring
+    const pulseRadius = 4.0 + Math.sin(timestamp / 100) * 1.2;
+    ctx.beginPath();
+    ctx.arc(currentX, currentY, pulseRadius, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(59, 130, 246, 0.35)';
+    ctx.lineWidth = 1.0;
+    ctx.stroke();
+    
+    // Inner solid dot
+    ctx.beginPath();
+    ctx.arc(currentX, currentY, 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#60a5fa'; // Blue 400
+    ctx.shadowColor = '#2563eb';
+    ctx.shadowBlur = 5;
+    ctx.fill();
+    ctx.shadowBlur = 0; // Reset
+    
+    requestAnimationFrame(draw);
+  }
+  
+  // Handle click to reposition the chain (burn-in demonstration)
+  canvas.addEventListener('click', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = width / rect.width;
+    const scaleY = height / rect.height;
+    
+    currentX = (e.clientX - rect.left) * scaleX;
+    currentY = (e.clientY - rect.top) * scaleY;
+    
+    // Keep within the sampling area
+    currentY = Math.min(height - 40, currentY);
+    
+    history = [{ x: currentX, y: currentY }];
+    proposedX = null;
+    proposedY = null;
+    proposalStatus = null;
+    proposalFlashTimer = 0;
+  });
+  
+  // Start animation loop
+  requestAnimationFrame(draw);
+}

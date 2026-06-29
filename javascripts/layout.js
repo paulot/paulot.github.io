@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <li><a href="${basePath}index.html" class="${activeLink === 'home' ? 'active' : ''}">Home</a></li>
           <li><a href="${basePath}index.html#essays" class="${activeLink === 'essays' ? 'active' : ''}">Essays</a></li>
           <li><a href="${basePath}index.html#playground" class="${activeLink === 'playground' ? 'active' : ''}">Playground</a></li>
-          <li><a href="${basePath}index.html#about" class="${activeLink === 'about' ? 'active' : ''}">About & Career</a></li>
         </ul>
       </div>
     `;
