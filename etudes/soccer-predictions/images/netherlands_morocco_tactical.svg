@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="800" height="1000" fill="#0f172a" />
+  
+  <!-- Pitch Area -->
+  <rect x="50" y="80" width="700" height="840" fill="#1e293b" stroke="#ffffff" stroke-width="3" stroke-opacity="0.6" rx="8" />
+  
+  <!-- Midfield Line -->
+  <line x1="50" y1="500" x2="750" y2="500" stroke="#ffffff" stroke-width="3" stroke-opacity="0.6" />
+  
+  <!-- Center Circle -->
+  <circle cx="400" cy="500" r="100" fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity="0.6" />
+  <circle cx="400" cy="500" r="6" fill="#ffffff" fill-opacity="0.8" />
+  
+  <!-- Penalty Area Top (Morocco Goal) -->
+  <rect x="180" y="80" width="440" height="160" fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity="0.6" />
+  <rect x="290" y="80" width="220" height="60" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.6" />
+  <path d="M 320 240 A 100 100 0 0 0 480 240" fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity="0.6" />
+
+  <!-- Penalty Area Bottom (Netherlands Goal) -->
+  <rect x="180" y="760" width="440" height="160" fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity="0.6" />
+  <rect x="290" y="860" width="220" height="60" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.6" />
+  <path d="M 320 760 A 100 100 0 0 1 480 760" fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity="0.6" />
+  
+  <!-- Corner Arcs -->
+  <path d="M 50 100 A 20 20 0 0 0 70 80" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.6" />
+  <path d="M 730 80 A 20 20 0 0 0 750 100" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.6" />
+  <path d="M 50 900 A 20 20 0 0 1 70 920" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.6" />
+  <path d="M 730 920 A 20 20 0 0 1 750 900" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity="0.6" />
+
+  <!-- Sustained Dutch Possession Zone (Red shading in top third) -->
+  <rect x="53" y="83" width="694" height="280" fill="#ef4444" fill-opacity="0.2" rx="6" />
+  
+  <!-- Markers for Arrows -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+    </marker>
+  </defs>
+  
+  <!-- Counter-Attack Arrows (Blue) -->
+  <!-- Left Channel Counter -->
+  <path d="M 300 320 Q 180 500 150 720" fill="none" stroke="#3b82f6" stroke-width="6" marker-end="url(#arrow)" stroke-dasharray="2" />
+  <!-- Central Counter -->
+  <path d="M 400 320 L 400 720" fill="none" stroke="#3b82f6" stroke-width="6" marker-end="url(#arrow)" stroke-dasharray="2" />
+  <!-- Right Channel Counter -->
+  <path d="M 500 320 Q 620 500 650 720" fill="none" stroke="#3b82f6" stroke-width="6" marker-end="url(#arrow)" stroke-dasharray="2" />
+  
+  <!-- Tactical Text Labels -->
+  <!-- Sustained Possession Text -->
+  <rect x="220" y="300" width="360" height="40" fill="#0f172a" stroke="#ef4444" stroke-width="1.5" rx="6" />
+  <text x="400" y="325" fill="#fecdd3" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" text-anchor="middle">Sustained Dutch Possession</text>
+  
+  <!-- Counter-Attacks Text -->
+  <rect x="220" y="550" width="360" height="40" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5" rx="6" />
+  <text x="400" y="575" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" text-anchor="middle">Moroccan Counter-Attacks</text>
+
+  <!-- Team Cards -->
+  <!-- Morocco (Top) -->
+  <g transform="translate(400, 140)">
+    <rect x="-140" y="-35" width="280" height="70" fill="#0f172a" stroke="#ef4444" stroke-width="2" rx="8" />
+    <text x="0" y="-8" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Morocco</text>
+    <text x="0" y="18" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="14" text-anchor="middle">att: 0.19, def: 0.02</text>
+  </g>
+
+  <!-- Netherlands (Bottom) -->
+  <g transform="translate(400, 860)">
+    <rect x="-140" y="-35" width="280" height="70" fill="#0f172a" stroke="#f97316" stroke-width="2" rx="8" />
+    <text x="0" y="-8" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Netherlands</text>
+    <text x="0" y="18" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="14" text-anchor="middle">att: 0.60, def: -0.31</text>
+  </g>
+  
+  <!-- Diagram Title -->
+  <text x="400" y="45" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">Tactical Projection: Expected Match Flow</text>
+</svg>

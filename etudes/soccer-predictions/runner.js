@@ -409,7 +409,7 @@ const embeddedNotebook = {
         "\n",
         "We expect the Netherlands to dominate possession, flooding the offensive third, while Morocco absorbs pressure in a mid-block and launches rapid counter-attacks into the vacated space behind the advanced Dutch wingbacks.\n",
         "\n",
-        "![Tactical Projection](./images/netherlands_morocco_tactical.jpg)"
+        "![Tactical Projection](./images/netherlands_morocco_tactical.svg)"
       ]
     },
     {
