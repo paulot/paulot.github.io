@@ -1,0 +1,271 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <rect width="1200" height="800" fill="#0b0f19"/>
+  <defs>
+    <linearGradient id="brazilGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#15803d" />
+      <stop offset="100%" stop-color="#16a34a" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <style>
+    .team-text { font-family: "Plus Jakarta Sans", "Inter", sans-serif; font-size: 13px; font-weight: 600; fill: #f8fafc; }
+    .prob-text { font-family: "Plus Jakarta Sans", "Inter", sans-serif; font-size: 12px; font-weight: 700; }
+    .stage-title { font-family: "Plus Jakarta Sans", "Inter", sans-serif; font-size: 16px; font-weight: 800; fill: #94a3b8; letter-spacing: 1px; }
+    .brazil-title { font-family: "Plus Jakarta Sans", "Inter", sans-serif; font-size: 18px; font-weight: 800; fill: #ffffff; }
+    .connection-line { fill: none; stroke: #475569; stroke-width: 2; }
+  </style>
+  <text x="110" y="40" text-anchor="middle" class="stage-title">ROOT</text>
+  <text x="320" y="40" text-anchor="middle" class="stage-title">ROUND OF 16</text>
+  <text x="570" y="40" text-anchor="middle" class="stage-title">QUARTER-FINALS</text>
+  <text x="820" y="40" text-anchor="middle" class="stage-title">SEMI-FINALS</text>
+  <text x="1070" y="40" text-anchor="middle" class="stage-title">POTENTIAL FINALLY</text>
+  <!-- Brazil Card -->
+  <rect x="50" y="370" width="140" height="60" rx="8" fill="url(#brazilGrad)" stroke="#eab308" stroke-width="2" filter="url(#shadow)"/>
+  <text x="120" y="405" text-anchor="middle" class="brazil-title">BRAZIL</text>
+  <g filter="url(#shadow)">
+    <rect x="990" y="52" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="52" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="74" class="team-text">Canada</text>
+    <text x="1138" y="74" text-anchor="end" fill="#22c55e" class="prob-text">68.0%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="98" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="98" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="120" class="team-text">South Africa</text>
+    <text x="1138" y="120" text-anchor="end" fill="#22c55e" class="prob-text">80.0%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="144" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="144" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="166" class="team-text">Netherlands</text>
+    <text x="1138" y="166" text-anchor="end" fill="#22c55e" class="prob-text">53.7%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="190" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="190" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="212" class="team-text">Morocco</text>
+    <text x="1138" y="212" text-anchor="end" fill="#22c55e" class="prob-text">58.3%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="236" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="236" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="258" class="team-text">Germany</text>
+    <text x="1138" y="258" text-anchor="end" fill="#22c55e" class="prob-text">54.9%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="282" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="282" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="304" class="team-text">Paraguay</text>
+    <text x="1138" y="304" text-anchor="end" fill="#22c55e" class="prob-text">67.7%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="328" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="328" width="4" height="36" rx="2" fill="#f43f5e"/>
+    <text x="1002" y="350" class="team-text">France</text>
+    <text x="1138" y="350" text-anchor="end" fill="#f43f5e" class="prob-text">39.9%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="374" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="374" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="396" class="team-text">Sweden</text>
+    <text x="1138" y="396" text-anchor="end" fill="#22c55e" class="prob-text">71.1%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="420" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="420" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="442" class="team-text">Portugal</text>
+    <text x="1138" y="442" text-anchor="end" fill="#22c55e" class="prob-text">51.1%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="466" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="466" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="488" class="team-text">Croatia</text>
+    <text x="1138" y="488" text-anchor="end" fill="#22c55e" class="prob-text">58.1%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="512" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="512" width="4" height="36" rx="2" fill="#f43f5e"/>
+    <text x="1002" y="534" class="team-text">Spain</text>
+    <text x="1138" y="534" text-anchor="end" fill="#f43f5e" class="prob-text">35.8%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="558" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="558" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="580" class="team-text">Austria</text>
+    <text x="1138" y="580" text-anchor="end" fill="#22c55e" class="prob-text">63.0%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="604" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="604" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="626" class="team-text">USA</text>
+    <text x="1138" y="626" text-anchor="end" fill="#22c55e" class="prob-text">65.9%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="650" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="650" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="672" class="team-text">Bosnia and Herzegovina</text>
+    <text x="1138" y="672" text-anchor="end" fill="#22c55e" class="prob-text">78.3%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="696" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="696" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="718" class="team-text">Belgium</text>
+    <text x="1138" y="718" text-anchor="end" fill="#22c55e" class="prob-text">58.4%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="990" y="742" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="990" y="742" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="1002" y="764" class="team-text">Senegal</text>
+    <text x="1138" y="764" text-anchor="end" fill="#22c55e" class="prob-text">62.9%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="740" y="75.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="740" y="75.0" width="4" height="36" rx="2" fill="#f43f5e"/>
+    <text x="752" y="97.0" class="team-text">Argentina</text>
+    <text x="888" y="97.0" text-anchor="end" fill="#f43f5e" class="prob-text">39.5%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="740" y="167.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="740" y="167.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="752" y="189.0" class="team-text">Cape Verde</text>
+    <text x="888" y="189.0" text-anchor="end" fill="#22c55e" class="prob-text">76.5%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="740" y="259.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="740" y="259.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="752" y="281.0" class="team-text">Australia</text>
+    <text x="888" y="281.0" text-anchor="end" fill="#22c55e" class="prob-text">65.9%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="740" y="351.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="740" y="351.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="752" y="373.0" class="team-text">Egypt</text>
+    <text x="888" y="373.0" text-anchor="end" fill="#22c55e" class="prob-text">66.9%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="740" y="443.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="740" y="443.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="752" y="465.0" class="team-text">Switzerland</text>
+    <text x="888" y="465.0" text-anchor="end" fill="#22c55e" class="prob-text">56.9%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="740" y="535.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="740" y="535.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="752" y="557.0" class="team-text">Algeria</text>
+    <text x="888" y="557.0" text-anchor="end" fill="#22c55e" class="prob-text">69.0%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="740" y="627.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="740" y="627.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="752" y="649.0" class="team-text">Colombia</text>
+    <text x="888" y="649.0" text-anchor="end" fill="#22c55e" class="prob-text">51.2%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="740" y="719.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="740" y="719.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="752" y="741.0" class="team-text">Ghana</text>
+    <text x="888" y="741.0" text-anchor="end" fill="#22c55e" class="prob-text">77.5%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="490" y="121.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="490" y="121.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="502" y="143.0" class="team-text">Mexico</text>
+    <text x="638" y="143.0" text-anchor="end" fill="#22c55e" class="prob-text">53.0%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="490" y="305.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="490" y="305.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="502" y="327.0" class="team-text">Ecuador</text>
+    <text x="638" y="327.0" text-anchor="end" fill="#22c55e" class="prob-text">58.7%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="490" y="489.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="490" y="489.0" width="4" height="36" rx="2" fill="#f43f5e"/>
+    <text x="502" y="511.0" class="team-text">England</text>
+    <text x="638" y="511.0" text-anchor="end" fill="#f43f5e" class="prob-text">46.8%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="490" y="673.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="490" y="673.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="502" y="695.0" class="team-text">DR Congo</text>
+    <text x="638" y="695.0" text-anchor="end" fill="#22c55e" class="prob-text">71.4%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="240" y="213.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="240" y="213.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="252" y="235.0" class="team-text">Ivory Coast</text>
+    <text x="388" y="235.0" text-anchor="end" fill="#22c55e" class="prob-text">66.1%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="240" y="581.0" width="160" height="36" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="240" y="581.0" width="4" height="36" rx="2" fill="#22c55e"/>
+    <text x="252" y="603.0" class="team-text">Norway</text>
+    <text x="388" y="603.0" text-anchor="end" fill="#22c55e" class="prob-text">56.9%</text>
+  </g>
+  <!-- Connections: Brazil to R16 -->
+  <path d="M 190 400 L 220 400" class="connection-line"/>
+  <path d="M 220 231.0 L 220 599.0" class="connection-line"/>
+  <path d="M 220 231.0 L 240 231.0" class="connection-line"/>
+  <path d="M 220 599.0 L 240 599.0" class="connection-line"/>
+  <!-- Connections: R16 to QF -->
+  <path d="M 400 231.0 L 470 231.0" class="connection-line"/>
+  <path d="M 470 139.0 L 470 323.0" class="connection-line"/>
+  <path d="M 470 139.0 L 490 139.0" class="connection-line"/>
+  <path d="M 470 323.0 L 490 323.0" class="connection-line"/>
+  <path d="M 400 599.0 L 470 599.0" class="connection-line"/>
+  <path d="M 470 507.0 L 470 691.0" class="connection-line"/>
+  <path d="M 470 507.0 L 490 507.0" class="connection-line"/>
+  <path d="M 470 691.0 L 490 691.0" class="connection-line"/>
+  <!-- Connections: QF to SF -->
+  <path d="M 650 139.0 L 720 139.0" class="connection-line"/>
+  <path d="M 720 93.0 L 720 185.0" class="connection-line"/>
+  <path d="M 720 93.0 L 740 93.0" class="connection-line"/>
+  <path d="M 720 185.0 L 740 185.0" class="connection-line"/>
+  <path d="M 650 323.0 L 720 323.0" class="connection-line"/>
+  <path d="M 720 277.0 L 720 369.0" class="connection-line"/>
+  <path d="M 720 277.0 L 740 277.0" class="connection-line"/>
+  <path d="M 720 369.0 L 740 369.0" class="connection-line"/>
+  <path d="M 650 507.0 L 720 507.0" class="connection-line"/>
+  <path d="M 720 461.0 L 720 553.0" class="connection-line"/>
+  <path d="M 720 461.0 L 740 461.0" class="connection-line"/>
+  <path d="M 720 553.0 L 740 553.0" class="connection-line"/>
+  <path d="M 650 691.0 L 720 691.0" class="connection-line"/>
+  <path d="M 720 645.0 L 720 737.0" class="connection-line"/>
+  <path d="M 720 645.0 L 740 645.0" class="connection-line"/>
+  <path d="M 720 737.0 L 740 737.0" class="connection-line"/>
+  <!-- Connections: SF to Final -->
+  <path d="M 900 93.0 L 970 93.0" class="connection-line"/>
+  <path d="M 970 70 L 970 116" class="connection-line"/>
+  <path d="M 970 70 L 990 70" class="connection-line"/>
+  <path d="M 970 116 L 990 116" class="connection-line"/>
+  <path d="M 900 185.0 L 970 185.0" class="connection-line"/>
+  <path d="M 970 162 L 970 208" class="connection-line"/>
+  <path d="M 970 162 L 990 162" class="connection-line"/>
+  <path d="M 970 208 L 990 208" class="connection-line"/>
+  <path d="M 900 277.0 L 970 277.0" class="connection-line"/>
+  <path d="M 970 254 L 970 300" class="connection-line"/>
+  <path d="M 970 254 L 990 254" class="connection-line"/>
+  <path d="M 970 300 L 990 300" class="connection-line"/>
+  <path d="M 900 369.0 L 970 369.0" class="connection-line"/>
+  <path d="M 970 346 L 970 392" class="connection-line"/>
+  <path d="M 970 346 L 990 346" class="connection-line"/>
+  <path d="M 970 392 L 990 392" class="connection-line"/>
+  <path d="M 900 461.0 L 970 461.0" class="connection-line"/>
+  <path d="M 970 438 L 970 484" class="connection-line"/>
+  <path d="M 970 438 L 990 438" class="connection-line"/>
+  <path d="M 970 484 L 990 484" class="connection-line"/>
+  <path d="M 900 553.0 L 970 553.0" class="connection-line"/>
+  <path d="M 970 530 L 970 576" class="connection-line"/>
+  <path d="M 970 530 L 990 530" class="connection-line"/>
+  <path d="M 970 576 L 990 576" class="connection-line"/>
+  <path d="M 900 645.0 L 970 645.0" class="connection-line"/>
+  <path d="M 970 622 L 970 668" class="connection-line"/>
+  <path d="M 970 622 L 990 622" class="connection-line"/>
+  <path d="M 970 668 L 990 668" class="connection-line"/>
+  <path d="M 900 737.0 L 970 737.0" class="connection-line"/>
+  <path d="M 970 714 L 970 760" class="connection-line"/>
+  <path d="M 970 714 L 990 714" class="connection-line"/>
+  <path d="M 970 760 L 990 760" class="connection-line"/>
+</svg>
