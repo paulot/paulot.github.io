@@ -1,39 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-  initHeader();
-  initMobileMenu();
   initActiveLinks();
-  initContactForm();
   
   // Interactive Widgets
   initHeroField();
   initMcmcWidget();
+  initPiiWidget();
 });
-
-/* Header Scrolled State */
-function initHeader() {
-  const header = document.querySelector('header');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
-}
-
-/* Mobile Menu Toggle */
-function initMobileMenu() {
-  const toggle = document.getElementById('mobile-menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  
-  if (toggle && navLinks) {
-    toggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', !expanded);
-    });
-  }
-}
 
 /* Active Nav Links on Scroll */
 function initActiveLinks() {
@@ -62,79 +34,6 @@ function initActiveLinks() {
   sections.forEach(section => observer.observe(section));
 }
 
-/* Contact Form Submission */
-function initContactForm() {
-  const form = document.getElementById('contact-form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
-      
-      // Simulate API Call
-      setTimeout(() => {
-        // Create a floating success toast
-        const toast = document.createElement('div');
-        toast.style.position = 'fixed';
-        toast.style.bottom = '24px';
-        toast.style.right = '24px';
-        toast.style.background = '#10b981';
-        toast.style.color = '#fff';
-        toast.style.padding = '16px 24px';
-        toast.style.borderRadius = '12px';
-        toast.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
-        toast.style.fontWeight = '600';
-        toast.style.boxShadow = '0 10px 25px rgba(16, 185, 129, 0.3)';
-        toast.style.zIndex = '1000';
-        toast.style.transform = 'translateY(100px)';
-        toast.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-        toast.textContent = 'Message sent successfully!';
-        
-        document.body.appendChild(toast);
-        
-        setTimeout(() => {
-          toast.style.transform = 'translateY(0)';
-        }, 100);
-        
-        // Reset form
-        form.reset();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-        
-        // Remove toast
-        setTimeout(() => {
-          toast.style.transform = 'translateY(150px)';
-          setTimeout(() => toast.remove(), 300);
-        }, 3000);
-      }, 1000);
-    });
-  }
-}
-
-/* Tooltip Helper */
-function createTooltip(container) {
-  const tooltip = document.createElement('div');
-  tooltip.className = 'widget-tooltip';
-  tooltip.style.opacity = '0';
-  tooltip.style.transition = 'opacity 0.15s ease-in-out';
-  container.appendChild(tooltip);
-  
-  return {
-    show: (text, x, y) => {
-      tooltip.innerHTML = text;
-      tooltip.style.left = `${x}px`;
-      tooltip.style.top = `${y}px`;
-      tooltip.style.opacity = '1';
-    },
-    hide: () => {
-      tooltip.style.opacity = '0';
-    }
-  };
-}
 
 /* 1. Hero Section Interactive Particle Field */
 function initHeroField() {
@@ -504,5 +403,183 @@ function initMcmcWidget() {
   });
   
   // Start animation loop
+  requestAnimationFrame(draw);
+}
+
+/* 3. PII Redactor Interactive Graphic Widget */
+function initPiiWidget() {
+  const canvas = document.getElementById('pii-canvas');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+  
+  // Define simulated text rows and capsules
+  const rows = [
+    {
+      y: 35,
+      words: [
+        { w: 30, pii: false },
+        { w: 45, pii: true, type: 'NAME', color: '#3b82f6' }, // Blue
+        { w: 25, pii: false },
+        { w: 35, pii: false }
+      ]
+    },
+    {
+      y: 65,
+      words: [
+        { w: 40, pii: false },
+        { w: 20, pii: false },
+        { w: 60, pii: true, type: 'EMAIL', color: '#10b981' }, // Green
+        { w: 15, pii: false }
+      ]
+    },
+    {
+      y: 95,
+      words: [
+        { w: 50, pii: true, type: 'PHONE', color: '#f59e0b' }, // Orange
+        { w: 30, pii: false },
+        { w: 45, pii: false }
+      ]
+    },
+    {
+      y: 125,
+      words: [
+        { w: 25, pii: false },
+        { w: 35, pii: true, type: 'LOC', color: '#ec4899' }, // Pink
+        { w: 40, pii: false },
+        { w: 30, pii: false }
+      ]
+    }
+  ];
+  
+  // Calculate X coordinates for each word
+  rows.forEach(row => {
+    let currentX = 12;
+    row.words.forEach(word => {
+      word.x = currentX;
+      currentX += word.w + 8; // width + gap
+    });
+  });
+  
+  let scanX = 0;
+  let direction = 1;
+  const speed = 1.2;
+  let mouseX = null;
+  
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = (e.clientX - rect.left) * (width / rect.width);
+  });
+  
+  canvas.addEventListener('mouseleave', () => {
+    mouseX = null;
+  });
+  
+  function draw(timestamp) {
+    ctx.clearRect(0, 0, width, height);
+    
+    // Determine scan line position
+    if (mouseX !== null) {
+      // Smoothly interpolate towards mouse position
+      scanX += (mouseX - scanX) * 0.15;
+    } else {
+      // Auto sweep back and forth
+      scanX += speed * direction;
+      if (scanX > width - 10) {
+        scanX = width - 10;
+        direction = -1;
+      } else if (scanX < 10) {
+        scanX = 10;
+        direction = 1;
+      }
+    }
+    
+    // Draw text rows
+    rows.forEach(row => {
+      row.words.forEach(word => {
+        const isRedacted = (word.x + word.w / 2) < scanX;
+        
+        ctx.beginPath();
+        if (typeof ctx.roundRect === 'function') {
+          ctx.roundRect(word.x, row.y - 7, word.w, 14, 4);
+        } else {
+          const x = word.x;
+          const y = row.y - 7;
+          const w = word.w;
+          const h = 14;
+          const r = 4;
+          ctx.moveTo(x + r, y);
+          ctx.lineTo(x + w - r, y);
+          ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+          ctx.lineTo(x + w, y + h - r);
+          ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+          ctx.lineTo(x + r, y + h);
+          ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+          ctx.lineTo(x, y + r);
+          ctx.quadraticCurveTo(x, y, x + r, y);
+        }
+        
+        if (word.pii) {
+          if (isRedacted) {
+            // Redacted state: solid dark gray
+            ctx.fillStyle = '#475569'; // Slate 600
+            ctx.fill();
+            
+            // Draw a tiny lock icon or crosshatch
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(word.x + 3, row.y - 3);
+            ctx.lineTo(word.x + word.w - 3, row.y + 3);
+            ctx.stroke();
+          } else {
+            // Unredacted PII state: colored border and light background
+            ctx.fillStyle = `${word.color}20`; // 12% opacity color
+            ctx.fill();
+            ctx.strokeStyle = word.color;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            
+            // Draw a tiny dot indicator
+            ctx.beginPath();
+            ctx.arc(word.x + 5, row.y, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = word.color;
+            ctx.fill();
+          }
+        } else {
+          // Normal word state: very light gray capsule
+          ctx.fillStyle = 'rgba(226, 232, 240, 0.4)'; // Slate 200 with opacity
+          ctx.fill();
+        }
+      });
+    });
+    
+    // Draw Scan Line (glowing vertical line)
+    const grad = ctx.createLinearGradient(scanX, 15, scanX, height - 15);
+    grad.addColorStop(0, 'rgba(59, 130, 246, 0)');
+    grad.addColorStop(0.5, 'rgba(99, 102, 241, 0.8)'); // Indigo glow
+    grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+    
+    ctx.beginPath();
+    ctx.moveTo(scanX, 15);
+    ctx.lineTo(scanX, height - 15);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+    
+    // Draw a small glow dot at the center of the scan line
+    ctx.beginPath();
+    ctx.arc(scanX, height / 2, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#818cf8';
+    ctx.shadowColor = '#6366f1';
+    ctx.shadowBlur = 8;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    
+    requestAnimationFrame(draw);
+  }
+  
   requestAnimationFrame(draw);
 }

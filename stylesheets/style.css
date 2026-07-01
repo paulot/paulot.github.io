@@ -1313,12 +1313,20 @@ footer {
   position: relative;
 }
 
-#mcmc-canvas {
+#mcmc-canvas,
+#pii-canvas {
   background: transparent;
   width: 100%;
   height: 100%;
   display: block;
+}
+
+#mcmc-canvas {
   cursor: crosshair;
+}
+
+#pii-canvas {
+  cursor: ew-resize;
 }
 
 /* Responsive: stack on mobile with graphic on top */

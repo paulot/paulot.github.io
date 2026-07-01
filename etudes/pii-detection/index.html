@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building a Client-Side PII Detection Engine — Paulo Tanaka</title>
+  <meta name="description" content="An interactive etude illustrating how to build a privacy-first, client-side PII detection and redaction engine using Regex and Transformers.js.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="../../stylesheets/style.css">
+  
+  <!-- Etude Specific Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="shared-header" data-depth="2" data-active="playground"></header>
+
+  <!-- Main Content -->
+  <section class="essay-view" style="padding-top: 160px; padding-bottom: 100px;">
+    <div class="section-wrapper editorial-layout">
+      <div class="sidebar-title">
+        <a href="../../index.html#playground" class="back-to-home" style="margin-bottom: 32px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Back to Playground
+        </a>
+        
+        <div class="essay-sidebar-meta">
+          <div class="essay-sidebar-meta-item">
+            <div class="essay-sidebar-meta-label">Published</div>
+            <div class="essay-sidebar-meta-value">January 2022</div>
+          </div>
+          <div class="essay-sidebar-meta-item">
+            <div class="essay-sidebar-meta-label">Runtime</div>
+            <div class="essay-sidebar-meta-value">ONNX / WASM (CPU)</div>
+          </div>
+          <div class="essay-sidebar-meta-item">
+            <div class="essay-sidebar-meta-label">Status</div>
+            <div class="essay-sidebar-meta-value" style="margin-top: 4px;">
+              <div id="model-status-badge" class="status-badge loading" style="padding: 4px 10px; font-size: 0.8rem; display: inline-flex;">
+                <div id="status-dot" class="status-dot"></div>
+                <span id="status-text">Model Unloaded</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <article class="essay-post">
+        <h1 class="essay-post-title" style="margin-top: 0; margin-bottom: 32px;">
+          Building a Client-Side PII Detection Engine
+        </h1>
+        
+        <div class="essay-post-content">
+          <p style="font-size: 1.1rem; color: var(--text-primary); line-height: 1.6; margin-bottom: 24px; font-style: italic; border-left: 3px solid var(--accent); padding-left: 16px;">
+            Having previously designed and built the core data classification engine at Meta, I've spent years thinking about how to protect sensitive information at scale. This project is a modern, privacy-first take on data classification, with a unique challenge: executing the entire pipeline locally within the browser environment, with zero server dependencies and near-zero latency.
+          </p>
+          <p>
+            Personally Identifiable Information (PII) leakage is one of the most critical security challenges when integrating Large Language Models (LLMs) or third-party APIs into enterprise workflows. Traditionally, PII masking is performed on a centralized server. However, this still requires transmitting sensitive data over the wire.
+          </p>
+          <p>
+            A <strong>privacy-first</strong> architecture resolves this by detecting and redacting PII <strong>locally in the user's browser</strong> before any data is sent to the network. In this etude, we will build a client-side PII detection engine from scratch.
+          </p>
+          
+          <h2>Why a Hybrid Architecture?</h2>
+          <p>
+            PII comes in two distinct forms, and trying to use a single tool to solve both leads to high error rates:
+          </p>
+          <ol>
+            <li>
+              <strong>Structured PII</strong> (Emails, Phone Numbers, Social Security Numbers, Credit Cards): These follow strict formatting rules. A machine learning model is actually <em>less</em> reliable here, as it can easily hallucinate or miss digits. These are best handled by a fast, deterministic <strong>Regex Engine</strong>.
+            </li>
+            <li>
+              <strong>Unstructured PII</strong> (Names, Locations, Organizations): These are highly contextual and infinite in variety. A regular expression cannot identify that "Apple" is an organization in one sentence and a fruit in another. These are best handled by a semantic <strong>Named Entity Recognition (NER) Model</strong>.
+            </li>
+          </ol>
+          
+          <div class="essay-table-container">
+            <table class="essay-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Best For</th>
+                  <th>Pros</th>
+                  <th>Cons</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Regex</strong></td>
+                  <td>SSNs, Emails, Credit Cards</td>
+                  <td>100% deterministic, 0ms latency</td>
+                  <td>Cannot understand context or names</td>
+                </tr>
+                <tr>
+                  <td><strong>NER Model</strong></td>
+                  <td>Names, Locations, Orgs</td>
+                  <td>Understands semantic context</td>
+                  <td>Requires model download (~43MB)</td>
+                </tr>
+                <tr>
+                  <td><strong>LLM (WebLLM)</strong></td>
+                  <td>Complex, free-form text</td>
+                  <td>Highly nuanced reasoning</td>
+                  <td>Heavy download (1.5GB+), slow, expensive</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>The Pipeline</h2>
+          <p>
+            Our engine combines these two approaches into a unified pipeline:
+          </p>
+          <div class="pipeline-diagram-container">
+            <svg viewBox="0 0 850 260" class="pipeline-diagram" xmlns="http://www.w3.org/2000/svg">
+              <!-- Definitions for markers (arrows) and gradients -->
+              <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--stroke-arrow)" />
+                </marker>
+                
+                <linearGradient id="grad-regex" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+                  <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+                </linearGradient>
+                
+                <linearGradient id="grad-ner" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#6366f1" stop-opacity="0.15" />
+                  <stop offset="100%" stop-color="#4338ca" stop-opacity="0.05" />
+                </linearGradient>
+
+                <linearGradient id="grad-merge" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.15" />
+                  <stop offset="100%" stop-color="#0f766e" stop-opacity="0.05" />
+                </linearGradient>
+              </defs>
+
+              <!-- Connection Paths -->
+              <g class="connections">
+                <!-- Input to Engines -->
+                <path d="M 115 125 C 135 125, 145 55, 165 55" marker-end="url(#arrow)" />
+                <path d="M 115 125 C 135 125, 145 135, 165 135" marker-end="url(#arrow)" />
+                <path d="M 115 125 C 135 125, 145 215, 165 215" marker-end="url(#arrow)" />
+
+                <!-- Engines to Entities -->
+                <path d="M 295 55 L 337 55" marker-end="url(#arrow)" />
+                <path d="M 295 135 L 337 135" marker-end="url(#arrow)" />
+
+                <!-- Entities to Merge -->
+                <path d="M 485 55 C 505 55, 515 125, 527 125" marker-end="url(#arrow)" />
+                <path d="M 485 135 C 505 135, 515 125, 527 125" marker-end="url(#arrow)" />
+                <path d="M 295 215 L 475 215 C 500 215, 510 125, 527 125" marker-end="url(#arrow)" />
+
+                <!-- Merge to Output -->
+                <path d="M 675 125 L 717 125" marker-end="url(#arrow)" />
+              </g>
+
+              <!-- Nodes -->
+              <!-- Input Text -->
+              <g class="node input-node">
+                <rect x="15" y="100" width="100" height="50" rx="8" />
+                <text x="65" y="129">Input Text</text>
+              </g>
+
+              <!-- Regex Engine -->
+              <g class="node engine-node regex">
+                <rect x="165" y="30" width="130" height="50" rx="8" fill="url(#grad-regex)" />
+                <text x="230" y="54" class="node-title">Regex Engine</text>
+                <text x="230" y="68" class="node-subtitle">Deterministic</text>
+              </g>
+
+              <!-- NER Model -->
+              <g class="node engine-node ner">
+                <rect x="165" y="110" width="130" height="50" rx="8" fill="url(#grad-ner)" />
+                <text x="230" y="134" class="node-title">Local NER Model</text>
+                <text x="230" y="148" class="node-subtitle">BERT (Semantic)</text>
+              </g>
+
+              <!-- Custom Wordlist -->
+              <g class="node wordlist-node">
+                <rect x="165" y="190" width="130" height="50" rx="8" />
+                <text x="230" y="214" class="node-title">Custom Wordlist</text>
+                <text x="230" y="228" class="node-subtitle">User-Defined</text>
+              </g>
+
+              <!-- Structured Entities -->
+              <g class="node entity-node structured">
+                <rect x="345" y="30" width="140" height="50" rx="8" />
+                <text x="415" y="54" class="node-title">Structured Entities</text>
+                <text x="415" y="68" class="node-subtitle">Email, Phone, SSN</text>
+              </g>
+
+              <!-- Semantic Entities -->
+              <g class="node entity-node semantic">
+                <rect x="345" y="110" width="140" height="50" rx="8" />
+                <text x="415" y="134" class="node-title">Semantic Entities</text>
+                <text x="415" y="148" class="node-subtitle">Name, Loc, Org</text>
+              </g>
+
+              <!-- Merge & Resolve -->
+              <g class="node merge-node">
+                <rect x="535" y="100" width="140" height="50" rx="8" fill="url(#grad-merge)" />
+                <text x="605" y="124" class="node-title">Merge &amp; Resolve</text>
+                <text x="605" y="138" class="node-subtitle">Deduplicate &amp; Prioritize</text>
+              </g>
+
+              <!-- Redacted Text -->
+              <g class="node output-node">
+                <rect x="725" y="100" width="110" height="50" rx="8" />
+                <text x="780" y="129">Redacted Text</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Interactive Demo Section -->
+          <div class="demo-card">
+            <h3 style="margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              Interactive Demo: Local PII Redactor
+            </h3>
+            
+            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px;">
+              Type or paste text containing PII below. The detection runs entirely in your browser using local regex patterns and a quantized BERT-NER model (~43MB) downloaded on-demand and cached locally. <strong>No data is sent to any server.</strong>
+            </p>
+            
+            <div class="demo-controls">
+              <div class="toggle-group-title">PII Entities to Detect:</div>
+              <div class="toggles-grid">
+                <label class="toggle-container">
+                  <input type="checkbox" id="toggle-name" checked>
+                  <span class="toggle-label">Names (NER)</span>
+                </label>
+                <label class="toggle-container">
+                  <input type="checkbox" id="toggle-email" checked>
+                  <span class="toggle-label">Emails (Regex)</span>
+                </label>
+                <label class="toggle-container">
+                  <input type="checkbox" id="toggle-phone" checked>
+                  <span class="toggle-label">Phone Numbers (Regex)</span>
+                </label>
+                <label class="toggle-container">
+                  <input type="checkbox" id="toggle-ssn" checked>
+                  <span class="toggle-label">SSNs (Regex)</span>
+                </label>
+                <label class="toggle-container">
+                  <input type="checkbox" id="toggle-card" checked>
+                  <span class="toggle-label">Credit Cards (Regex)</span>
+                </label>
+                <label class="toggle-container">
+                  <input type="checkbox" id="toggle-loc" checked>
+                  <span class="toggle-label">Locations (NER)</span>
+                </label>
+                <label class="toggle-container">
+                  <input type="checkbox" id="toggle-org" checked>
+                  <span class="toggle-label">Organizations (NER)</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="input-area-container">
+              <textarea id="demo-input" rows="6" placeholder="Enter text here... For example: 'Hi, my name is John Doe. My phone number is 555-019-2834 and my email is john.doe@google.com. I work at Google in Seattle, WA.'"></textarea>
+            </div>
+            
+            <div class="demo-actions">
+              <button id="btn-load-model" class="btn btn-secondary" style="display: none;">
+                <div class="spinner" id="model-spinner" style="display: none; border-top-color: var(--text-primary); margin-right: 8px;"></div>
+                Load NER Model (~43MB)
+              </button>
+              <button id="btn-analyze" class="btn btn-primary" disabled>
+                Analyze Text
+              </button>
+              <button id="btn-redact" class="btn btn-primary" style="background: var(--gpu-active);" disabled>
+                Redact Text
+              </button>
+            </div>
+            
+            <div class="progress-container" id="progress-container" style="display: none;">
+              <div class="progress-label" id="progress-label">Downloading model...</div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <div class="output-container" id="output-container" style="display: none;">
+              <h4 style="margin-top: 0; margin-bottom: 12px; color: var(--text-primary);">Analysis Result:</h4>
+              <div class="output-display" id="output-display"></div>
+            </div>
+          </div>
+          
+          <h2>How it Works Under the Hood</h2>
+          
+          <h3>1. The Regex Engine</h3>
+          <p>
+            First, we define a set of regular expressions for structured data. In JavaScript, we can compile these into a dictionary of detectors:
+          </p>
+          <pre><code class="language-javascript">const REGEX_PATTERNS = {
+  EMAIL: /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g,
+  PHONE: /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g,
+  SSN: /\b\d{3}-\d{2}-\d{4}\b/g,
+  CREDIT_CARD: /\b(?:\d[ -]*?){13,16}\b/g
+};</code></pre>
+
+          <h3>2. The Named Entity Recognition (NER) Engine</h3>
+          <p>
+            For unstructured text, we load a quantized BERT model using **Transformers.js**. Since it compiled to WebAssembly, it runs locally on the CPU at near-native speeds.
+          </p>
+          <pre><code class="language-javascript">import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.0';
+
+// Initialize the Token Classification pipeline
+const nerPipeline = await pipeline('token-classification', 'Xenova/bert-base-NER', {
+  progress_callback: (data) => {
+    if (data.status === 'progress') {
+      updateProgressBar(data.progress);
+    }
+  }
+});
+
+// Run inference
+const entities = await nerPipeline("My name is John Doe and I live in Seattle.");
+console.log(entities);
+/* Output:
+[
+  { entity: 'I-PER', word: 'John', score: 0.99, start: 11, end: 15 },
+  { entity: 'I-PER', word: 'Doe', score: 0.99, start: 16, end: 19 },
+  { entity: 'I-LOC', word: 'Seattle', score: 0.99, start: 34, end: 41 }
+]
+*/</code></pre>
+
+          <h3>3. Merging and Resolving Entities</h3>
+          <p>
+            Because both engines run independently, we can get overlapping or redundant entities (e.g., a credit card number might be partially flagged as a number by the NER model). We resolve this by sorting all detected entities by their starting index and merging overlaps, giving priority to the **Regex Engine** for structured patterns.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="shared-footer"></footer>
+
+  <!-- Layout Script -->
+  <script src="../../javascripts/layout.js"></script>
+
+  <!-- Prism.js Script for Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+  <!-- PII Redactor Script -->
+  <script type="module" src="runner.js"></script>
+</body>
+</html>
