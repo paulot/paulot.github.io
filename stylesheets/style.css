@@ -908,6 +908,23 @@ footer {
   .project-image-container {
     min-height: 300px;
   }
+  
+  .essay-sidebar-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px 32px;
+    margin-top: 16px;
+  }
+  
+  .essay-sidebar-meta-item {
+    flex: 1 1 auto;
+    margin-top: 0 !important;
+  }
+  
+  .essay-sidebar-meta-item:last-child {
+    width: 100%;
+    margin-top: 12px !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -940,6 +957,21 @@ footer {
   .contact-layout {
     grid-template-columns: 1fr;
     gap: 48px;
+  }
+  
+  .footer-wrapper {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .hero-visual {
+    height: 320px;
+  }
+  
+  .about-career-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 }
 
@@ -1300,5 +1332,9 @@ footer {
     width: 120px;
     height: 120px;
     flex: 0 0 120px;
+  }
+  
+  .essay-post-title {
+    font-size: 1.85rem;
   }
 }
