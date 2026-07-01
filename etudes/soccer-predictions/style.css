@@ -392,3 +392,23 @@
 .cm-s-default .cm-meta { color: #d73a49; }
 .cm-s-default .cm-qualifier { color: #d73a49; }
 .cm-s-default .cm-string-2 { color: #22863a; }
+
+/* Scrollable container for wide diagrams to prevent mobile blurriness */
+.scrollable-diagram {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 24px 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: #0b0f19;
+  padding: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.scrollable-diagram img {
+  display: block;
+  min-width: 1000px;
+  width: 100%;
+  height: auto;
+}
+
