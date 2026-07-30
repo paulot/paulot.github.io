@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Math Master | Compensation & Percentages</title>
+  <meta name="description" content="Master mental math techniques for percentages, salary bonuses, equity, and total compensation calculations on the fly.">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  <!-- Background Glow FX -->
+  <div class="bg-glow blob-1"></div>
+  <div class="bg-glow blob-2"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="logo-area" id="btn-home">
+      <div class="logo-icon"><i class="fa-solid fa-brain"></i></div>
+      <div class="logo-text">
+        <span class="brand-title">MentalMath<span class="brand-accent">HQ</span></span>
+        <span class="brand-subtitle">Compensation & Percentage Master</span>
+      </div>
+    </div>
+    
+    <div class="header-stats">
+      <div class="stat-badge" title="Total XP Earned">
+        <i class="fa-solid fa-bolt text-yellow"></i>
+        <span id="user-xp">0</span> XP
+      </div>
+      <div class="stat-badge" title="Current Streak">
+        <i class="fa-solid fa-fire text-orange"></i>
+        <span id="user-streak">0</span> Days
+      </div>
+      <button class="icon-btn" id="toggle-audio" title="Toggle Sound Effects">
+        <i class="fa-solid fa-volume-high" id="audio-icon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- VIEW 1: MODULE SELECTION DASHBOARD -->
+    <section id="view-dashboard" class="view active">
+      <div class="hero-banner">
+        <div class="hero-content">
+          <h1>Calculate Compensation <span class="gradient-text">On The Fly</span></h1>
+          <p>Master mental percentage decomposition, bonus additions, RSU vesting, and total compensation formulas with interactive tools & gameized drills.</p>
+        </div>
+        <div class="quick-stats-card">
+          <div class="quick-stat">
+            <span class="stat-value" id="stats-completed">0 / 6</span>
+            <span class="stat-label">Modules Completed</span>
+          </div>
+          <div class="quick-stat">
+            <span class="stat-value" id="stats-accuracy">100%</span>
+            <span class="stat-label">Accuracy Rate</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>Curriculum Modules</h2>
+        <span class="badge">Select a module to start learning</span>
+      </div>
+
+      <div class="modules-grid" id="modules-grid">
+        <!-- Module cards will be injected dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 2: INTERACTIVE LESSON MODULE -->
+    <section id="view-lesson" class="view">
+      <div class="view-nav">
+        <button class="btn btn-secondary back-btn" id="btn-back-dashboard">
+          <i class="fa-solid fa-arrow-left"></i> Modules
+        </button>
+        <div class="lesson-header-title">
+          <span class="module-tag" id="lesson-module-tag">Module 1</span>
+          <h2 id="lesson-title">Anchor Percentages</h2>
+        </div>
+        <div class="lesson-progress-indicator">
+          <span id="slide-count">Step 1 of 4</span>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="lesson-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-card glass-panel">
+        <div class="slide-container" id="slide-container">
+          <!-- Slide contents injected dynamically -->
+        </div>
+
+        <div class="lesson-controls">
+          <button class="btn btn-secondary" id="btn-prev-slide" disabled>
+            <i class="fa-solid fa-chevron-left"></i> Previous
+          </button>
+          <div class="slide-dots" id="slide-dots"></div>
+          <button class="btn btn-primary" id="btn-next-slide">
+            Next <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          <button class="btn btn-success hidden" id="btn-start-practice">
+            Start Practice Drills <i class="fa-solid fa-play"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: PRACTICE & GAME DRILL -->
+    <section id="view-practice" class="view">
+      <div class="view-nav">
+        <button class="btn btn-secondary back-btn" id="btn-exit-practice">
+          <i class="fa-solid fa-xmark"></i> Exit
+        </button>
+        <button class="btn btn-secondary back-btn" id="btn-finish-practice">
+          <i class="fa-solid fa-flag-checkered"></i> Finish Drill
+        </button>
+        <div class="game-mode-toggle">
+          <button class="mode-btn active" id="mode-guided" data-mode="guided">
+            <i class="fa-solid fa-graduation-cap"></i> Guided Practice
+          </button>
+          <button class="mode-btn" id="mode-timed" data-mode="timed">
+            <i class="fa-solid fa-stopwatch"></i> Speed Challenge
+          </button>
+        </div>
+        <div class="score-display">
+          <div class="score-item" id="timer-box" style="display: none;">
+            <i class="fa-solid fa-clock text-cyan"></i>
+            <span id="timer-val">60s</span>
+          </div>
+          <div class="score-item">
+            <i class="fa-solid fa-trophy text-yellow"></i>
+            <span id="score-val">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="practice-card glass-panel">
+        <!-- Question Progress Bar -->
+        <div class="quiz-progress">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+
+        <!-- Question Header -->
+        <div class="question-header">
+          <span class="question-category" id="question-category">10% & 5% Anchors</span>
+          <div class="streak-pill hidden" id="streak-pill">
+            <i class="fa-solid fa-fire"></i> <span id="streak-count">3</span> Streak!
+          </div>
+        </div>
+
+        <!-- Question Content -->
+        <div class="question-body">
+          <h2 class="question-text" id="question-text">Calculate 15% bonus on a base salary of $160,000</h2>
+          
+          <div class="interactive-helper-panel" id="helper-panel">
+            <div class="helper-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Mental Scratchpad Breakdown</div>
+            <div class="anchor-buttons" id="anchor-buttons">
+              <button class="anchor-chip" data-pct="10">+10% ($16,000)</button>
+              <button class="anchor-chip" data-pct="5">+5% ($8,000)</button>
+              <button class="anchor-chip" data-pct="1">+1% ($1,600)</button>
+              <button class="anchor-chip reset" id="btn-reset-helper"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            </div>
+            <div class="helper-running-sum" id="helper-running-sum">
+              Sum: <span id="helper-sum-val">$0</span> (<span id="helper-pct-val">0%</span>)
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="answer-section">
+          <div class="input-wrapper">
+            <span class="currency-prefix">$</span>
+            <input type="text" id="answer-input" inputmode="numeric" pattern="[0-9]*" placeholder="Enter amount..." autocomplete="off" autofocus>
+            <button class="btn btn-primary btn-submit" id="btn-submit-answer">
+              Submit <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+          
+          <!-- Multiple Choice Options (if applicable) -->
+          <div class="mc-options grid-options hidden" id="mc-options">
+            <!-- Dynamic option buttons -->
+          </div>
+        </div>
+
+        <!-- Solution Feedback Panel -->
+        <div class="feedback-panel hidden" id="feedback-panel">
+          <div class="feedback-header" id="feedback-header">
+            <i class="fa-solid fa-circle-check" id="feedback-icon"></i>
+            <span id="feedback-title">Correct!</span>
+          </div>
+          <div class="feedback-explanation" id="feedback-explanation">
+            <!-- Mental step-by-step breakdown will appear here -->
+          </div>
+          <button class="btn btn-primary" id="btn-next-question">
+            Next Question <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: RESULTS / SUMMARY SCREEN -->
+    <section id="view-results" class="view">
+      <div class="results-card glass-panel">
+        <div class="results-icon">
+          <i class="fa-solid fa-award"></i>
+        </div>
+        <h1>Module Drill Complete!</h1>
+        <p class="results-subtitle" id="results-subtitle">Great job practicing mental math for compensation!</p>
+
+        <div class="results-stats-grid">
+          <div class="result-stat-box">
+            <span class="stat-num" id="res-score">0</span>
+            <span class="stat-lbl">Final Score</span>
+          </div>
+          <div class="result-stat-box">
+            <span class="stat-num" id="res-accuracy">0%</span>
+            <span class="stat-lbl">Accuracy</span>
+          </div>
+          <div class="result-stat-box">
+            <span class="stat-num" id="res-xp">+0 XP</span>
+            <span class="stat-lbl">XP Earned</span>
+          </div>
+        </div>
+
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="btn-retry-module">
+            <i class="fa-solid fa-rotate-right"></i> Retry Drill
+          </button>
+          <button class="btn btn-primary" id="btn-results-dashboard">
+            Back to Dashboard <i class="fa-solid fa-house"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
